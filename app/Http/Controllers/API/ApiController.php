@@ -13,7 +13,7 @@ class ApiController extends Controller
             [
                 'title' => 'Judul 1',
                 'image' => Storage::disk('public')->url('images/image1.png'),
-                'description' => '',
+                'description' => 'Deskripsi 1',
             ],
             [
                 'title' => 'Judul 2',
