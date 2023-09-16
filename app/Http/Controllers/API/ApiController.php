@@ -36,8 +36,12 @@ class ApiController extends Controller
                 'description' => 'Deskripsi 5',
             ],
         ];
-
-        return response()->json($data);
+    
+        $response = [
+            'data' => $data,
+            'status' => 200, // Ubah status sesuai kebutuhan Anda
+        ];
+    
+        return response()->json($response, $response['status']);
     }
-
 }
