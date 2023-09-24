@@ -101,7 +101,7 @@ class AuthController extends Controller
         }
     }
 
-    public function verifyOtp(Request $request, $user)
+    public function verifyOtp(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|exists:users,email',
@@ -127,19 +127,5 @@ class AuthController extends Controller
     {
         $user = auth()->user();
         return $this->successResponse($user);
-    }
-
-    public function redirectToGoogle()
-    {
-        return Socialite::driver('google')->redirect();
-    }
-
-    public function handleGoogleCallback()
-    {
-        try {
-            $user = Socialite::driver('google')->user();
-        } catch (Exception $e) {
-            return redirect('/');
-        }
     }
 }
