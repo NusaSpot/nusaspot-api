@@ -30,7 +30,7 @@ class AuthController extends Controller
 
             return $this->successResponse($user, 'Login Berhasil !', 200);
         } else {
-            return $this->errorResponse('Error', 500);
+            return $this->errorResponse('Username atau password salah !', 500);
         }
     }
 
