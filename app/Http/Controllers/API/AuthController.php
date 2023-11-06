@@ -20,15 +20,19 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            $tokenResult = $user->createToken('authToken');
-            $token = $tokenResult->plainTextToken;
-            $user = $user;
-            $user['token'] = $token;
 
-            return $this->successResponse($user, 'Login Berhasil !', 200);
+            if ($user->email_verified_at) {
+                $tokenResult = $user->createToken('authToken');
+                $token = $tokenResult->plainTextToken;
+                $user = $user;
+                $user['token'] = $token;
+
+                return $this->successResponse($user, 'Login Berhasil !', 200);
+            } else {
+                return $this->errorResponse('Anda belum memverifikasi alamat email.', 403);
+            }
         } else {
             return $this->errorResponse('Username atau password salah !', 500);
         }
@@ -117,7 +121,11 @@ class AuthController extends Controller
         if ($user->otp === $request->otp) {
             $user->email_verified_at = now();
             $user->save();
-            return $this->successResponse(null, 'OTP Sesuai !', 200);
+
+            $tokenResult = $user->createToken('authToken');
+            $token = $tokenResult->plainTextToken;
+            $user['token'] = $token;
+            return $this->successResponse($user, 'OTP Sesuai !', 200);
         }
 
         return $this->errorResponse('OTP Tidak Sesuai !');

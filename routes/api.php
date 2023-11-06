@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\ApiController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,9 @@ Route::post('verify-otp', [AuthController::class, 'verifyOtp']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('login-status', [AuthController::class, 'loginStatus']);
+
+    Route::get('profile', [ProfileController::class, 'viewProfile']);
+    Route::post('profile', [ProfileController::class, 'storeProfile']);
 });
 
 Route::get('first-api', [ApiController::class, 'firstApi']);
