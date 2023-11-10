@@ -48,6 +48,8 @@ class ProfileController extends Controller
 
         $profile->save();
 
+        $profile['name'] = $user->name;
+        $profile['email'] = $user->email;
         return $this->successResponse($profile, 'Sukses Update Profile !', 200);
     }
 
