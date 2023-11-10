@@ -4,9 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Mail\RequestOTP;
+use App\Models\Provider;
 use App\Models\User;
 use App\Traits\ResponseTrait;
-use Exception;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -135,5 +138,60 @@ class AuthController extends Controller
     {
         $user = auth()->user();
         return $this->successResponse($user);
+    }
+
+    public function redirectToProvider($provider)
+    {
+        $validated = $this->validateProvider($provider);
+        if (!is_null($validated)) {
+            return $validated;
+        }
+
+        return Socialite::driver($provider)->stateless()->redirect();
+    }
+
+    public function handleProviderCallback($provider)
+    {
+        $validated = $this->validateProvider($provider);
+        if (!is_null($validated)) {
+            return $validated;
+        }
+        try {
+            $user = Socialite::driver($provider)->stateless()->user();
+        } catch (ClientException $exception) {
+            return response()->json(['error' => 'Invalid credentials provided.'], 422);
+        }
+
+        $userCreated = User::firstOrCreate(
+            [
+                'email' => $user->getEmail()
+            ],
+            [
+                'email_verified_at' => Carbon::now(),
+                'name' => $user->getName(),
+                'password' => bcrypt(Str::random(10)),
+            ]
+        );
+
+        $provider = new Provider([
+            'provider' => $provider,
+            'provider_id' => $user->getId(),
+            'avatar' => $user->getAvatar(),
+        ]);
+        
+        $userCreated->providers()->save($provider);
+
+        $tokenResult = $userCreated->createToken('authToken');
+        $token = $tokenResult->plainTextToken;
+        $userCreated['token'] = $token;
+
+        return response()->json($userCreated, 200, ['Access-Token' => $token]);
+    }
+
+    protected function validateProvider($provider)
+    {
+        if (!in_array($provider, ['facebook', 'github', 'google'])) {
+            return response()->json(['error' => 'Please login using facebook, github or google'], 422);
+        }
     }
 }

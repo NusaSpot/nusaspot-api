@@ -36,12 +36,12 @@ class ProfileController extends Controller
         $profile->phone = $request->phone;
 
         if($request->profile_picture){
-            $base64Image = $request->input('profile_picture');
-
-            $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64Image));
+            $image = $request->file('profile_picture');
+            $resizedImage = Image::make($image);
+            $imageString = (string) $resizedImage->encode();
 
             $imagePath = 'img/profile/' . time() . "_$userId" . "_" ."profile-picture.png";
-            Storage::disk('gcs')->put($imagePath, $image);
+            Storage::disk('gcs')->put($imagePath, $imageString);
     
             $profile->profile_picture = $imagePath;
         }
@@ -54,6 +54,8 @@ class ProfileController extends Controller
     public function viewProfile()
     {
         $user = auth()->user();
+        $user->profile['name'] = $user->name;
+        $user->profile['email'] = $user->email;
         return $this->successResponse($user->profile);
     }
 }

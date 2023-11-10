@@ -31,6 +31,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::get('first-api', [ApiController::class, 'firstApi']);
 
+Route::get('/login/{provider}', [AuthController::class,'redirectToProvider']);
+Route::get('/login/{provider}/callback', [AuthController::class,'handleProviderCallback']);
+
 
 
 
