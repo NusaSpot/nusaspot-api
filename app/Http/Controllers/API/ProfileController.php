@@ -20,6 +20,8 @@ class ProfileController extends Controller
             'date_of_birth' => 'required|date',
             'phone' => 'required|string',
             'profile_picture' => 'required',
+            'weight' => 'required',
+            'height' => 'required',
         ]);
 
         $user = auth()->user();
@@ -34,6 +36,8 @@ class ProfileController extends Controller
         $profile->gender = $request->gender;
         $profile->date_of_birth = $request->date_of_birth;
         $profile->phone = $request->phone;
+        $profile->weight = $request->weight;
+        $profile->height = $request->height;
 
         if($request->profile_picture){
             $image = $request->file('profile_picture');
