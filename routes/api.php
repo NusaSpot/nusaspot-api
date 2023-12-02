@@ -37,6 +37,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('detect-detail/{detectId}', [DetectController::class, 'detectDetail']);
     Route::post('detect-detail-store/{detectId}', [DetectController::class, 'detectDetailStore']);
     Route::get('detect-detail-delete/{detectId}/{detectDetailId}', [DetectController::class, 'detectDetailDelete']);
-    Route::get('detect-start-recognition/{detectId}', [DetectController::class, 'detectStartRecognition']);
     Route::get('detect-finish/{detectId}', [DetectController::class, 'detectFinish']);
 });
