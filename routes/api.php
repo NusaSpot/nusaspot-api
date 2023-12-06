@@ -4,6 +4,7 @@ use App\Http\Controllers\API\ApiController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\DetectController;
 use App\Http\Controllers\API\ProfileController;
+use App\Http\Controllers\API\RecipeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,4 +39,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('detect-detail-store/{detectId}', [DetectController::class, 'detectDetailStore']);
     Route::get('detect-detail-delete/{detectId}/{detectDetailId}', [DetectController::class, 'detectDetailDelete']);
     Route::get('detect-finish/{detectId}', [DetectController::class, 'detectFinish']);
+
+    Route::get('recipe', [RecipeController::class, 'recipe']);
+
 });
+Route::post('/recipes/import', [RecipeController::class, 'import']);

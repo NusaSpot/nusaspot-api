@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Detect;
 use App\Models\DetectDetail;
+use App\Models\Recipe;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -103,6 +104,34 @@ class DetectController extends Controller
         $detect->status = 1;
         $detect->save();
 
-        return $this->successResponse(null, 'Success Finish Detection');
+        $resultArray = [];
+        foreach ($detect->detectDetail as $detail) {
+            $resultArray[] = $detail->result;
+        }
+
+        $resultString = implode(', ', $resultArray);
+
+        if (strpos($resultString, ',') !== false) {
+            $keywords = explode(',', $resultString);
+    
+            $keywords = array_filter(array_map('trim', $keywords));
+    
+            $recipes = Recipe::where(function ($query) use ($keywords) {
+                foreach ($keywords as $keyword) {
+                    $query->orWhere('title', 'like', '%' . $keyword . '%')
+                          ->orWhere('ingredients', 'like', '%' . $keyword . '%');
+                }
+            })->get();
+        } else {
+            $recipes = Recipe::where('title', 'like', '%' . $resultString . '%')
+                ->orWhere('ingredients', 'like', '%' . $resultString . '%')
+                ->get();
+        }
+    
+        if ($recipes->isEmpty()) {
+            return $this->errorResponse('No recipes found for the given search query.', 404);
+        }
+
+        return $this->successResponse($recipes, 'Success Finish Detection');
     }
 }
