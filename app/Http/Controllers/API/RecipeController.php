@@ -53,4 +53,10 @@ class RecipeController extends Controller
         
         return response()->json(['data' => Recipe::all()]);
     }
+
+    public function recipeDetail($recipeId)
+    {
+        $recipe = Recipe::find($recipeId);
+        return $this->successResponse($recipe);
+    }
 }

@@ -41,6 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('detect-finish/{detectId}', [DetectController::class, 'detectFinish']);
 
     Route::get('recipe', [RecipeController::class, 'recipe']);
+    Route::get('recipe/{recipeId}', [RecipeController::class, 'recipeDetail']);
 
 });
 Route::post('/recipes/import', [RecipeController::class, 'import']);
