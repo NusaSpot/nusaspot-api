@@ -189,6 +189,7 @@ class ProfileController extends Controller
         if ($user->profile) {
             $user->profile['name'] = $user->name;
             $user->profile['email'] = $user->email;
+            $user->profile['is_guest'] = $user->is_guest;
     
             return $this->successResponse($user->profile);
         } else {
