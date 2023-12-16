@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::get('guest-login', [AuthController::class, 'guestLogin']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 Route::post('reset-password', [AuthController::class, 'resetPassword']);
@@ -32,6 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('profile', [ProfileController::class, 'viewProfile']);
     Route::post('profile', [ProfileController::class, 'storeProfile']);
+    Route::post('update-body', [ProfileController::class, 'updateBody']);
     
     Route::get('detect', [DetectController::class, 'detect']);
     Route::get('detect-start', [DetectController::class, 'detectStart']);

@@ -16,7 +16,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'otp'
+        'otp',
+        'is_guest'
     ];
 
     

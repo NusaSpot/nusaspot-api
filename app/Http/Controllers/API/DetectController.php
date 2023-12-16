@@ -7,6 +7,7 @@ use App\Models\Detect;
 use App\Models\DetectDetail;
 use App\Models\Recipe;
 use App\Traits\ResponseTrait;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -20,6 +21,12 @@ class DetectController extends Controller
     {
         $user = auth()->user();
         $detect = Detect::where('user_id', $user->id)->where('status', 1)->get();
+        $detect = $detect->map(function ($item) {
+            $item->readable_created_at = Carbon::parse($item->created_at)->format('d F Y');
+            $item->created_time_at = Carbon::parse($item->created_at)->format('H:i');
+            return $item;
+        });
+        
         return $this->successResponse($detect);
     }
 
@@ -58,9 +65,10 @@ class DetectController extends Controller
 		    'imgUrl' => Storage::disk('gcs')->url($imagePath),
 		];
         
+        $detectImageUrl = env('DETECT_IMAGE_URL');
         $curl = curl_init();
 		curl_setopt_array($curl, array(
-		    CURLOPT_URL => "https://detect-image-1-4m337nn6bq-et.a.run.app/predict-single-url",
+		    CURLOPT_URL => $detectImageUrl,
 		    CURLOPT_RETURNTRANSFER => true,
 		    CURLOPT_ENCODING => "",
 		    CURLOPT_MAXREDIRS => 10,

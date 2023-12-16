@@ -194,4 +194,25 @@ class AuthController extends Controller
             return response()->json(['error' => 'Please login using facebook, github or google'], 422);
         }
     }
+
+    public function guestLogin()
+    {
+        $randomName = Str::random(10);
+        $randomEmail = $randomName . '@guest.com';
+        $randomPassword = Str::random(12);
+    
+        $user = User::create([
+            'name' => $randomName,
+            'email' => $randomEmail,
+            'password' => bcrypt($randomPassword),
+            'is_guest' => true,
+        ]);
+    
+        $tokenResult = $user->createToken('authToken');
+        $token = $tokenResult->plainTextToken;
+        $user['token'] = $token;
+        $user['is_guest'] = $user->is_guest;
+    
+        return $this->successResponse($user, 'Register Berhasil !', 200);
+    }
 }
