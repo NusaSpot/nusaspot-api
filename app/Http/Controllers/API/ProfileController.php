@@ -118,6 +118,7 @@ class ProfileController extends Controller
 
         $profile['name'] = $user->name;
         $profile['email'] = $user->email;
+        $profile['is_guest'] = $user->is_guest;
         return $this->successResponse($profile, 'Sukses Update Profile !', 200);
     }
 
@@ -134,9 +135,13 @@ class ProfileController extends Controller
 
         if (!$profile) {
             $profile = new Profile();
+            $profile->user_id = $userId;
+            $profile->gender = 'male';
+            $profile->date_of_birth = date('Y-m-d');
+            $profile->phone = '08' . rand(100000000, 999999999);
+            $profile->profile_picture = "img/profile/default.jpg";
         }
 
-        $profile->user_id = $userId;
         $profile->weight = $request->weight;
         $profile->height = $request->height;
 
@@ -179,6 +184,7 @@ class ProfileController extends Controller
 
         $profile['name'] = $user->name;
         $profile['email'] = $user->email;
+        $profile['is_guest'] = $user->is_guest;
         return $this->successResponse($profile, 'Sukses Update Profile !', 200);
     }
 
