@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\ApiController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\DetectController;
+use App\Http\Controllers\API\NutritionistController;
 use App\Http\Controllers\API\ProfileController;
 use App\Http\Controllers\API\RecipeController;
 use Illuminate\Http\Request;
@@ -44,6 +45,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('recipe', [RecipeController::class, 'recipe']);
     Route::get('recipe/{recipeId}', [RecipeController::class, 'recipeDetail']);
+
+    Route::get('nutritionist', [NutritionistController::class, 'nutritionist']);
 
 });
 Route::post('/recipes/import', [RecipeController::class, 'import']);
