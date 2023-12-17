@@ -9,13 +9,14 @@ use Illuminate\Support\Facades\Storage;
 class NutritionistProfile extends Model
 {
     protected $guarded = [];
+    protected $appends = ['profile_picture'];
 
     public function nutritionist(): BelongsTo
     {
         return $this->belongsTo(Nutritionist::class);
     }
 
-    public function getProfilePictureLinkAttribute()
+    public function getProfilePictureAttribute()
     {
         return $this->attributes['profile_picture'] != null ? Storage::disk('gcs')->url($this->attributes['profile_picture']) : null;
     }
