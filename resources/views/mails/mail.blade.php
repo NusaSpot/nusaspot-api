@@ -115,7 +115,7 @@
                           <tbody>
                             <tr>
                               <td style="width:214px;">
-                                <img height="auto" src="{{ asset('edm-icon/logo.png') }}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;margin-bottom:20px" width="300" />
+                                <img height="auto" src="{{ asset('assets/img/nutricare.png') }}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;margin-bottom:20px" width="300" />
                               </td>
                             </tr>
                           </tbody>
@@ -231,26 +231,12 @@
                         <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
                           <tr>
                             <td>
-                                <div style="width: 100%;text-align: center;margin:20px 0;">
-                                <img src="{{ asset('edm-icon/logo.png') }}" style="width:200px;margin:0 auto;margin-bottom:20px">
-                                </div>
-                                <ul style="padding:0;margin:0 auto;list-style-type:none;display: block; width: max-content;">
-                                    <li style="display:inline-block;margin:0 5px;"><a href=""><img src="{{ asset('edm-icon/fb-icon.png') }}" style="width:30px;"></a></li>
-                                    <li style="display:inline-block;margin:0 5px;"><a href=""><img src="{{ asset('edm-icon/twitter-icon.png') }}" style="width:30px;"></a></li>
-                                    <li style="display:inline-block;margin:0 5px;"><a href=""><img src="{{ asset('edm-icon/instagram-icon.png') }}" style="width:30px;"></a></li>
-                                    <li style="display:inline-block;margin:0 5px;"><a href=""><img src="{{ asset('edm-icon/telegram-icon.png') }}" style="width:30px;"></a></li>
-                                    <li style="display:inline-block;margin:0 5px;"><a href=""><img src="{{ asset('edm-icon/discord-icon.png') }}" style="width:30px;"></a></li>
-                                    <li style="display:inline-block;margin:0 5px;"><a href=""><img src="{{ asset('edm-icon/reddit-icon.png') }}" style="width:30px;"></a></li>
-                                    <li style="display:inline-block;margin:0 5px;"><a href=""><img src="{{ asset('edm-icon/email-icon.png') }}" style="width:30px;"></a></li>
-                                </ul>
                                 <p style="font-family:Sofia Sans, sans-serif; font-size:12px; text-align: center;">
                                     <a href="" style="margin-right:20px; color:#000;text-decoration: none;">Legals</a>
                                     <a href="" style="color:#000;text-decoration: none; padding:0 20px; border-left:1px solid #000; border-right:1px solid #000;">Terms and Conditions</a>
                                     <a href="" style="margin-left:20px;color:#000;text-decoration: none;">About Us</a>
                                 </p>
-                                <p style="font-family:Sofia Sans,sans-serif;text-align:center;margin-top:20px;font-size:10px;line-height:14px">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et aliquam quisquam harum excepturi recusandae? Expedita saepe nihil facere optio esse suscipit dolorum, error fuga magnam iste, voluptatem veritatis maiores aut?</p>
-
-                                <p style="font-family:Sofia Sans,sans-serif;text-align:center;margin-top:20px;font-size:10px;line-height:14px">© {{ date('Y') }} aihra.my All Rights Reserved.</p>
+                                <p style="font-family:Sofia Sans,sans-serif;text-align:center;margin-top:20px;font-size:10px;line-height:14px">© {{ date('Y') }} NutriCare All Rights Reserved.</p>
                             </td>
                           </tr>
                         </table>

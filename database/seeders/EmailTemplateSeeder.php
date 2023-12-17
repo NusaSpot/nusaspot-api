@@ -13,10 +13,10 @@ class EmailTemplateSeeder extends Seeder
             [
                 'constant' => 'welcome',
                 'template_for' => 'Welcome',
-                'template_header' => 'Complete Your Registration',
-                'template_body' => 'Hey {{name}},
+                'template_header' => 'Selesaikan Registrasi Anda',
+                'template_body' => 'Hai {{name}},
 
-Selamat datang!
+Selamat datang di NutriCare!
 
 Silakan gunakan OTP di bawah ini untuk memvalidasi akun Anda.
 
@@ -36,6 +36,26 @@ The password reset link is valid for 5 minutes.
 ',
                 'button_name' => 'Reset Now',
                 'button_link' => 'reset',
+            ],[
+                'constant' => 'approved-nutritionist',
+                'template_for' => 'Approved Nutritionist',
+                'template_header' => 'Pendaftaran Anda Diterima',
+                'template_body' => 'Hey {{name}},
+
+Selamat anda dapat bergabung bersama NutriCare, silahkan login ke website NutriCare untuk melanjutkan aktivitas anda.
+',
+                'button_name' => null,
+                'button_link' => null,
+            ],[
+                'constant' => 'rejected-nutritionist',
+                'template_for' => 'rejected Nutritionist',
+                'template_header' => 'Pendaftaran Anda Ditolak',
+                'template_body' => 'Hai {{name}},
+
+Mohon maaf pendaftaran ditolak, silahkan login ke website NutriCare untuk melihat keterangan lebih lanjut.
+',
+                'button_name' => null,
+                'button_link' => null,
             ],
         ];
 
