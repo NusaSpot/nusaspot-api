@@ -115,7 +115,7 @@
                           <tbody>
                             <tr>
                               <td style="width:214px;">
-                                <img height="auto" src="{{ asset('assets/img/nutricare.png') }}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;margin-bottom:20px" width="300" />
+                                <img height="auto" src="{{ asset('assets/img/nutricare-edm.png') }}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;margin-bottom:20px" width="300" />
                               </td>
                             </tr>
                           </tbody>
