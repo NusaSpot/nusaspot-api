@@ -12,6 +12,8 @@ RUN apk --update --no-cache add \
     && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
 
+RUN echo "upload_max_filesize = 15M" >> /usr/local/etc/php/php.ini \
+&& echo "post_max_size = 15M" >> /usr/local/etc/php/php.ini
 # Install nginx and other dependencies
 RUN apk add --no-cache nginx wget
 
