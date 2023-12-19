@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
+use App\Models\User;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -45,7 +46,7 @@ class ProfileController extends Controller
     public function storeProfile(Request $request)
     {
         $request->validate([
-            'gender' => 'required|in:male,female',
+            'gender' => 'required',
             'date_of_birth' => 'required|date',
             'phone' => 'required|string',
             'profile_picture' => 'required',
@@ -53,16 +54,21 @@ class ProfileController extends Controller
             'height' => 'required',
         ]);
 
-        $user = auth()->user();
+        $user = User::find(auth()->user()->id);
         $userId = $user->id;
         $profile = $user->profile;
 
+        if($request->name){
+            $user->name = $request->name;
+            $user->save();
+        }
+        
         if (!$profile) {
             $profile = new Profile();
         }
 
         $profile->user_id = $userId;
-        $profile->gender = $request->gender;
+        $profile->gender = $request->gender == 'Laki-Laki' ? 'male' : 'female';
         $profile->date_of_birth = $request->date_of_birth;
         $profile->phone = $request->phone;
         $profile->weight = $request->weight;
